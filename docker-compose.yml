@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  crossfire-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: basictheprogram/crossfire-server:1.75.0
+    environment:
+      - PORT=13327
+    # env_file:
+    #   - .env
+    ports:
+      - "13327:13327"
+    # command sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
+    # heathcheck:
+    #   testt: ["CMS"]
+    #   interval: 5m
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    # logging:
+    #   driver: syslog
+    #   options:
+    #     syslog-address: "udp://x.x.x.x:port"
+    volumes:
+      - gamefiles:/var/games/crossfire
+      - logsfiles:/var/log/crossfire
+
+volumes:
+  gamefiles:
+  logsfiles:
