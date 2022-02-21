@@ -1,5 +1,7 @@
 name: Build Docker Container
 
+# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
+
 on:
   workflow_call:
   workflow_dispatch:
@@ -10,7 +12,7 @@ on:
 
 jobs:
   docker:
-    runs-on: ubuntu:jammy
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
