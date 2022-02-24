@@ -13,10 +13,12 @@ docker run -it --entrypoint "/bin/bash" basictheprogram/crossfire-server
 ```
 ### Production
 ```
-CF_HOME=/path/on/host/crossfire
+CF_HOME=/opt/crossfire
+CF_HOSTNAME=crossfire.metalforge.net
+
 docker run --detach \
-  --hostname crossfire.your-domain.com \
-  --publish 13327:13327
+  --hostname $CF_HOSTNAME \
+  --publish 13327:13327 \
   --name crossfire-server \
   --restart always \
   --volume $CF_HOME/gamefiles:/var/games/crossfire \
