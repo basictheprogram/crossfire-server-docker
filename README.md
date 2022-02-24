@@ -40,6 +40,7 @@ Help me?
 
 The Crossfire Server container uses host mounted volumes to store persistent data:
 | Local location     | Container location   | Usage                   |
+| --------------     | ------------------   | -----
 | $CF_HOME/gamefiles | /var/games/crossfire | For storing game files. |
 | $CF_HOME/logfiles  | /var/log/crossfire   | For storing log files.  |
 
