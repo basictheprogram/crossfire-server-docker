@@ -38,23 +38,23 @@ jobs:
           push: true
           tags: basictheprogram/crossfire-server:latest
 
-  PushContainerReadme:
-    runs-on: ubuntu-latest
-    name: Push README to Docker Hub
-    steps:
-      - name: git checkout
-        uses: actions/checkout@v2
+  # PushContainerReadme:
+  #   runs-on: ubuntu-latest
+  #   name: Push README to Docker Hub
+  #   steps:
+  #     - name: git checkout
+  #       uses: actions/checkout@v2
 
-      - name: Pish README to Docker Hub
-        uses: christian-korneck/update-container-description-action@v1
-        env:
-          DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD}}
-        with:
-          destination_container_repo: basictheprogram/crossfire-server
-          provider: dockerhub
-          short_description: 'my short description 😊'
-          readme_file: 'README.md'
+  #     - name: Push README to Docker Hub
+  #       uses: christian-korneck/update-container-description-action@v1
+  #       env:
+  #         DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD}}
+  #       with:
+  #         destination_container_repo: basictheprogram/crossfire-server
+  #         provider: dockerhub
+  #         short_description: 'my short description 😊'
+  #         readme_file: 'README.md'
 
   # test_crossfire_server_job:
   #   uses: basictheprogram/crossfire-server-docker/.github/workflows/test-crossfire-server.yaml@main
