@@ -9,11 +9,10 @@ Docker is required. See the [official installation documentation](https://docs.d
 
 ## Set up the volumes
 
-Before setting everything else, configure a new environment variable $CF_HOME pointing to the directory
-where the configuration, game files, logs, and data files will reside. Ensure that the directory exists
-and appropriate permission have been granted.
+Before setting everything else, configure a new environment variable $CF_HOME pointing
+to the directory where the configuration, game files, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.
 
-For Linux users, set the path to /srv/gitlab:
+For Linux users, set the path to /opt/gitlab:
 ```
 export CF_HOME=/opt/crossfire
 ```
