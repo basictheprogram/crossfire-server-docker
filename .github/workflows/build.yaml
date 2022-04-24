@@ -1,3 +1,4 @@
+---
 name: Build Docker Container
 
 # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
@@ -37,70 +38,3 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: basictheprogram/crossfire-server:latest
-
-  # PushContainerReadme:
-  #   runs-on: ubuntu-latest
-  #   name: Push README to Docker Hub
-  #   steps:
-  #     - name: git checkout
-  #       uses: actions/checkout@v2
-
-  #     - name: Push README to Docker Hub
-  #       uses: christian-korneck/update-container-description-action@v1
-  #       env:
-  #         DOCKER_USER: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         DOCKER_PASS: ${{ secrets.DOCKERHUB_PASSWORD}}
-  #       with:
-  #         destination_container_repo: basictheprogram/crossfire-server
-  #         provider: dockerhub
-  #         short_description: 'my short description 😊'
-  #         readme_file: 'README.md'
-
-  # test_crossfire_server_job:
-  #   uses: basictheprogram/crossfire-server-docker/.github/workflows/test-crossfire-server.yaml@main
-  # build:
-  #   runs-on: ubuntu:jammy
-  #   needs: [test_crossfire_server_job]
-  #   env:
-  #     CLUSTER_NAME: crossfire-server-k8s
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-  #     - name: Install Docker Hub?
-  #       uses: digitalocean/action-doctl@v2
-  #       with:
-  #         token: ${{ secrets.DO_API_TOKEN_KEY }}
-  #     - name: Login to Container Registry with short-lived creds
-  #       run: doctl registry login --expiry-seconds 1200
-  #     - name: Build container image
-  #       working-directory: ./web
-  #       run: |
-  #         docker build -f Dockerfile \
-  #           -t basictheprogram/crossfire-server:latest \
-  #           -t basictheprogram/crossfire-server:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5} \
-  #           .
-  #     - name: Push image
-  #       run: |
-  #         docker push basictheprogram/crossfire-server --all-tags
-      # - name: K8s cluster kubeconfig file with/ short-lived creds
-      #   run: |
-      #     doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
-      # - name: Update deployment secrets
-      #   run: |
-      #     cat << EOF >> web/.env.prod
-      #     AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     EOF
-      #     kubectl delete secret production-pod
-      #     kubectl create secret generic production-pod --from-env-file=web/.env.prod
-      # - name: Update Deployment image
-      #   run: |
-      #     kubectl set image deployment/pod pods=basictheprogram/crossfire-server:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
-      # - name: Wait for rollout to finish
-      #   run: |
-      #     kubectl rollout status deployment/pod
-      # - name: Post-build Django Commands - Migrate / Collectstatic
-      #   run: |
-      #     export SINGLE_POD_NAME=$(kubectl get pod -l app=basictheprogram/crossfire-server -o jsonpath="{.items[0].metadata.name}")
-      #     kubectl exec -it $SINGLE_POD_NAME -- bash /app/migrate.sh
-      #     kubectl exec -it $SINGLE_POD_NAME -- bash /app/collectstatic.sh

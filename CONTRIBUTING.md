@@ -12,20 +12,7 @@ docker tag basictheprogram/xxx:yyy  basictheprogram/xxx:yyy
 docker run -it --entrypoint "/bin/bash" basictheprogram/crossfire-server
 ```
 ### Production
-```
-CF_HOME=/opt/crossfire
-CF_HOSTNAME=crossfire.metalforge.net
 
-docker run --detach \
-  --hostname $CF_HOSTNAME \
-  --publish 13327:13327 \
-  --name crossfire-server \
-  --restart always \
-  --volume $CF_HOME/gamefiles:/var/games/crossfire \
-  --volume $CF_HOME/logsfiles:/var/log/crossfire \
-  --shm-size 256m \
-   basictheprogram/crossfire-server:latest
-```
 ## Publish
 ### Docker
 ```
