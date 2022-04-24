@@ -22,8 +22,8 @@ RUN install -d /app
 COPY entrypoint.sh /app
 RUN chmod +x /app/entrypoint.sh
 RUN touch /var/games/crossfire/highscore
-RUN intall -d /var/games/crossfire/datafiles
-RUN intall -d /var/games/crossfire/players
+RUN install -d /var/games/crossfire/datafiles
+RUN install -d /var/games/crossfire/players
 RUN install -d /var/games/crossfire/unique-items
 RUN chown -R games:games /var/games/crossfire
 
