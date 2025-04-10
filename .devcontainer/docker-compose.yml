@@ -1,0 +1,21 @@
+---
+services:
+  vscode:
+    container_name: crossfire-server-vscode
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        DEBIAN_VERSION: bookworm
+    volumes:
+      - ..:/workspace:cached
+    environment:
+      TZ: ${TZ:-America/Chicago}
+    command: sleep infinity
+    networks:
+      - crossfire
+
+networks:
+  crossfire:
+    name: crossfire
+    driver: bridge

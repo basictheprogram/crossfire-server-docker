@@ -1,0 +1,30 @@
+ARG DEBIAN_VERSION=bookworm
+ARG HADOLINT=v2.12.0
+
+FROM mcr.microsoft.com/vscode/devcontainers/base:$DEBIAN_VERSION
+
+LABEL maintainer="Bob Tanner <tanner@real-time.com>"
+
+# hadolint ignore=DL3008
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    git-lfs \
+    less \
+    vim-tiny \
+    openssh-client \
+    pre-commit \
+    && apt-get autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ARG USERNAME=vscode
+ARG USER_UID=3000
+ARG USER_GID=3000
+
+RUN echo "vscode ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vscode  \
+    && if ! getent group vscode; then groupadd --gid 3000 vscode; fi \
+    && if ! id -u vscode > /dev/null 2>&1; then useradd --uid 3000 --gid 3000 -m vscode; fi
+
+EXPOSE 8000
