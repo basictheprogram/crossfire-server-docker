@@ -27,6 +27,6 @@ RUN install -d /app \
     && install -d /var/games/crossfire/datafiles \
     && install -d /var/games/crossfire/players \
     && install -d /var/games/crossfire/unique-items \
-    && chown -R games:games /var/games/crossfire \
+    && chown -R games:games /var/games/crossfire
 
 CMD [ "/app/entrypoint.sh" ]
