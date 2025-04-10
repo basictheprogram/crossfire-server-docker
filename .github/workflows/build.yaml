@@ -1,26 +1,25 @@
 ---
 name: Build Docker Container
-
-# https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners
-
 on:
   workflow_call:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
+      - devcontainer
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - devcontainer
 
 jobs:
-  BuildDockerImage:
+  build-and-push:
     runs-on: ubuntu-latest
     name: Build Docker Image
+
     steps:
       - name: git checkout
-        uses: actions/checkout@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
