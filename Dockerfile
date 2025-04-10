@@ -19,10 +19,10 @@ VOLUME ["/var/games/crossfire/", "/var/log/crossfire"]
 
 EXPOSE 13327
 
+RUN install -d /app
 COPY entrypoint.sh /app
 
-RUN install -d /app \
-    && chmod +x /app/entrypoint.sh \
+RUN chmod +x /app/entrypoint.sh \
     && touch /var/games/crossfire/highscore \
     && install -d /var/games/crossfire/datafiles \
     && install -d /var/games/crossfire/players \
