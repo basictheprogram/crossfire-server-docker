@@ -12,14 +12,14 @@ Docker is required. See the [official installation documentation](https://docs.d
 Before setting everything else, configure a new environment variable $CF_HOME pointing
 to the directory where the configuration, game files, logs, and data files will reside. Ensure that the directory exists and appropriate permission have been granted.
 
-For Linux users, set the path to /opt/gitlab:
+For Linux users, set the path to /opt/rossfire:
 ```
 export CF_HOME=/opt/crossfire
 ```
 
-For macOS users, use the user’s $HOME/gitlab directory:
+For macOS users, use the user’s $HOME/crossfire directory:
 ```
-export CF_HOME=$HOME/gitlab
+export CF_HOME=$HOME/crossfire
 ```
 
 For window users, use XXXX:
@@ -29,7 +29,7 @@ Help me?
 
 For Linux and macOS platforms set the hostname:
 ```
-export CF_HOSTNAME=crossfire.metalforge.net
+export CF_HOSTNAME=crossfire.your-domain.net
 ```
 
 For windows set the hostname:
@@ -63,5 +63,5 @@ docker run --detach \
 ```
 
 This will download and start a Crossfire Server container and publish ports needed to
-access TCP 13327. All Crossfire Server data will be stored as subdirectories of $CF_HOME.
+access TCP/13327. All Crossfire Server data will be stored as subdirectories of $CF_HOME.
 The container will automatically restart after a system reboot.

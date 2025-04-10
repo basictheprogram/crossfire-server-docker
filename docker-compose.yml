@@ -1,10 +1,7 @@
 ---
 services:
   crossfire-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: basictheprogram/crossfire-server:1.75.0
+    image: basictheprogram/crossfire-server:latest
     environment:
       - PORT=13327
     # env_file:

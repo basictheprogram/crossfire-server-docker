@@ -39,10 +39,14 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          platform: ${{ matrix.platform }}
+          platform: linux/amd64,linux/arm64
           push: true
           tags: |
             basictheprogram/crossfire-server:latest
             basictheprogram/crossfire-server:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Verify Image Architectures
+        run: |
+          docker manifest inspect basictheprogram/crossfire-server:latest
