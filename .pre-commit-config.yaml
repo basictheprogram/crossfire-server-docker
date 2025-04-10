@@ -17,7 +17,7 @@ repos:
         files: requirements.txt|\.gitignore|\.dockerignore
 
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.35.1
+    rev: v1.37.0
     hooks:
       - id: yamllint
         files: \.(yaml|yml)$
@@ -25,7 +25,7 @@ repos:
         entry: yamllint --strict -f parsable
 
   - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.18.2
+    rev: v8.24.2
     hooks:
       - id: gitleaks
 
