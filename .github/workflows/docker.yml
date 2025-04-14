@@ -63,13 +63,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Get crossfire-server version from APT
-        id: crossfire
+      - name: Extract version from built image
+        id: crossfire_version
         run: |
-          sudo apt-get update -qq
-          VERSION=$(apt-cache policy crossfire-server | grep Candidate | awk '{print $2}')
-          echo "Crossfire server version: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          VERSION=$(docker run --rm basictheprogram/crossfire-server:latest dpkg-query -W -f='${Version}\n' crossfire-server)
+          echo "CROSSFIRE_VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build and Push
         uses: docker/build-push-action@v6
@@ -80,7 +78,7 @@ jobs:
           tags: |
             basictheprogram/crossfire-server:latest
             basictheprogram/crossfire-server:${{ github.sha }}
-            basictheprogram/crossfire-server:${{ steps.crossfire.outputs.version }}
+            basictheprogram/crossfire-server:${{ steps.crossfire.outputs.CROSSFIRE_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
