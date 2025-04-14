@@ -13,13 +13,39 @@ on:
       - devcontainer
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+  lint-devcontainer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: .devcontainer/Dockerfile
+
   build-and-push:
     runs-on: ubuntu-latest
-    name: Build Docker Image
 
     # strategy:
     #   matrix:
     #     platform: [linux/amd64, linux/arm64]
+
+    needs: lint
+    if: ${{ success() }}
 
     steps:
       - name: Checkout
@@ -37,6 +63,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Get crossfire-server version from APT
+        id: crossfire
+        run: |
+          sudo apt-get update -qq
+          VERSION=$(apt-cache policy crossfire-server | grep Candidate | awk '{print $2}')
+          echo "Crossfire server version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build and Push
         uses: docker/build-push-action@v6
         with:
@@ -46,6 +80,7 @@ jobs:
           tags: |
             basictheprogram/crossfire-server:latest
             basictheprogram/crossfire-server:${{ github.sha }}
+            basictheprogram/crossfire-server:${{ steps.crossfire.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
