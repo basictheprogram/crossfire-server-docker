@@ -6,6 +6,7 @@ LABEL description="Docker Image for the Crossfire Server"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# hadolint ignore=DL3005, DL3008
 RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes \
     && apt-get update -qq \
     && apt-get dist-upgrade -qq \
