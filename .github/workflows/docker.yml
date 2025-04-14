@@ -67,6 +67,8 @@ jobs:
         id: crossfire_version
         run: |
           VERSION=$(docker run --rm basictheprogram/crossfire-server:latest dpkg-query -W -f='${Version}\n' crossfire-server)
+          echo "Crossfire server version: $VERSION"
+          echo "CROSSFIRE_VERSION=$VERSION" >> $GITHUB_ENV
           echo "CROSSFIRE_VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build and Push
@@ -78,7 +80,7 @@ jobs:
           tags: |
             basictheprogram/crossfire-server:latest
             basictheprogram/crossfire-server:${{ github.sha }}
-            basictheprogram/crossfire-server:${{ steps.crossfire.outputs.CROSSFIRE_VERSION }}
+            basictheprogram/crossfire-server:${{ steps.crossfire_version.outputs.CROSSFIRE_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
